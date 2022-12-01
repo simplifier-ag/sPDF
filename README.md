@@ -20,13 +20,7 @@ It's also possible to embed javascript code in the pages, `wkhtmltopdf` will wai
 Add the following to your sbt build for Scala 2.10, 2.11 and 2.12:
 
 ```scala
-libraryDependencies += "io.github.simplifier-ag" %% "spdf" % "1.4.0"
-```
-
-Add the following to your sbt build for Scala 2.9:
-
-```scala
-libraryDependencies += "io.github.simplifier-ag" %% "spdf" % "1.3.1"
+libraryDependencies += "io.github.simplifier-ag" %% "spdf" % "1.4.1"
 ```
 
 ## Usage ##
