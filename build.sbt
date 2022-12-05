@@ -88,6 +88,10 @@ pomExtra := (
       <email>pix@yahoo.it</email>
       <url>http://www.pixzone.com</url>
     </developer>
+    <developer>
+      <id>C-Schwemin</id>
+      <name>Christoph Schwemin</name>
+    </developer>
   </developers>
 )
 
