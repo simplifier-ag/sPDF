@@ -12,6 +12,7 @@ class Pdf(executablePath: String, config: PdfConfig) {
    */
   def run[A, B](sourceDocument: A, destinationDocument: B)(implicit sourceDocumentLike: SourceDocumentLike[A], destinationDocumentLike: DestinationDocumentLike[B]): Int = {
     val commandLine = toCommandLine(sourceDocument, destinationDocument)
+    println(commandLine)
     val process = Process(commandLine)
     def source = sourceDocumentLike.sourceFrom(sourceDocument) _
     def sink = destinationDocumentLike.sinkTo(destinationDocument) _

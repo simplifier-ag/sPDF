@@ -63,7 +63,7 @@ libraryDependencies ++= Seq (
 publishMavenStyle := true
 
 publishTo := {
-  val nexus = "https://oss.sonatype.org/"
+  val nexus = "https://s01.oss.sonatype.org/"
   if (version.value.trim.endsWith("SNAPSHOT"))
     Some("snapshots" at nexus + "content/repositories/snapshots")
   else
@@ -71,7 +71,12 @@ publishTo := {
 }
 
 credentials += Credentials(Path.userHome / ".credentials.sonatype")
-
+credentials += Credentials(
+  "GnuPG Key ID",
+  "gpg",
+  "D47B6E1E63D979514A139ADAD433750913FA4E7E", // key identifier
+  "ignored" // this field is ignored; passwords are supplied by pinentry
+)
 publishArtifact in Test := false
 
 // publishArtifact in (Compile, packageDoc) := false

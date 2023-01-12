@@ -19,7 +19,7 @@ class PdfConfigSpec extends WordSpec with Matchers {
         orientation := Landscape
         zoom := 1.23f
       }
-      PdfConfig.toParameters(config) should equal(Seq("--enable-forms", "--encoding", "UTF-8", "--margin-bottom", "1in", "--minimum-font-size", "3", "--orientation", "Landscape", "--zoom", "%.2f".format(1.23f)))
+      PdfConfig.toParameters(config) should equal(Seq("--margin-bottom", "1in", "--orientation", "Landscape", "--encoding", "UTF-8", "--enable-forms", "--minimum-font-size", "3", "--zoom", "1,23"))
     }
 
     "no pdf compression" in {

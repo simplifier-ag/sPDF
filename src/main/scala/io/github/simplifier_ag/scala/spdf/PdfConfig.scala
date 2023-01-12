@@ -14,32 +14,32 @@ trait PdfConfig {
    * See `wkhtmltopdf --extended-help` for a description of each option
    */
 
-  val allow: Parameter[Iterable[String]] = Parameter[Iterable[String]]("allow")
 
-  val defaultHeader: Parameter[Boolean] = Parameter[Boolean]("default-header")
+  //General Options
 
-  val disableExternalLinks: Parameter[Boolean] = Parameter[Boolean]("disable-external-links")
+  val collate: Parameter[Option[Boolean]] = Parameter[Option[Boolean]]("collate")
 
-  val disableInternalLinks: Parameter[Boolean] = Parameter[Boolean]("disable-internal-links")
+  val cookieJar: Parameter[String] = Parameter[String]("cookie-jar")
 
-  val disableJavascript: Parameter[Boolean] = Parameter[Boolean]("disable-javascript")
+  val copies: Parameter[Int] = Parameter[Int]("copies")
 
-  @deprecated("Use noPdfCompression instead", "1.3.1")
-  val disablePdfCompression: Parameter[Boolean] = Parameter[Boolean]("disable-pdf-compression")
+  val dpi: Parameter[Int] = Parameter[Int]("dpi")
 
-  val noPdfCompression: Parameter[Boolean] = Parameter[Boolean]("no-pdf-compression")
-
-  val disableSmartShrinking: Parameter[Boolean] = Parameter[Boolean]("disable-smart-shrinking")
-
-  val javascriptDelay: Parameter[Int] = Parameter[Int]("javascript-delay")
-
-  val enableForms: Parameter[Boolean] = Parameter[Boolean]("enable-forms")
-
-  val encoding: Parameter[String] = Parameter[String]("encoding", "UTF-8")
+  val extendedHelp: Parameter[Boolean] = Parameter[Boolean]("extended-help")
 
   val grayScale: Parameter[Boolean] = Parameter[Boolean]("grayscale")
 
-  val lowQuality: Parameter[Boolean] = Parameter[Boolean]("lowquality")
+  val help: Parameter[Boolean] = Parameter[Boolean]("help")
+
+  val htmlDoc: Parameter[Boolean] = Parameter[Boolean]("html-doc")
+
+  val imageDpi: Parameter[Int] = Parameter[Int]("image-dpi")
+
+  val imageQuality: Parameter[Int] = Parameter[Int]("image-quality")
+
+  val license: Parameter[Boolean] = Parameter[Boolean]("license")
+
+  val manPage: Parameter[Boolean] = Parameter[Boolean]("manpage")
 
   val marginBottom: Parameter[String] = Parameter[String]("margin-bottom")
 
@@ -49,25 +49,149 @@ trait PdfConfig {
 
   val marginTop: Parameter[String] = Parameter[String]("margin-top")
 
-  val minimumFontSize: Parameter[Int] = Parameter[Int]("minimum-font-size")
-
-  val background: Parameter[Option[Boolean]] = Parameter[Option[Boolean]]("background")
-
   val orientation: Parameter[PageOrientation] = Parameter[PageOrientation]("orientation")
 
   val pageHeight: Parameter[String] = Parameter[String]("page-height")
-
-  val pageOffset: Parameter[String] = Parameter[String]("page-offset")
 
   val pageSize: Parameter[String] = Parameter[String]("page-size")
 
   val pageWidth: Parameter[String] = Parameter[String]("page-width")
 
+  val noPdfCompression: Parameter[Boolean] = Parameter[Boolean]("no-pdf-compression")
+
+  val readArgsFromStdin: Parameter[Boolean] = Parameter[Boolean]("read-args-from-stdin")
+
+  val readme: Parameter[Boolean] = Parameter[Boolean]("readme")
+
   val title: Parameter[String] = Parameter[String]("title")
 
-  val tableOfContent: ObjectParameter[Boolean] = ObjectParameter[Boolean]("toc")
+  val useXServer: Parameter[Boolean] = Parameter[Boolean]("use-xserver")
+
+  val version: Parameter[Boolean] = Parameter[Boolean]("version")
+
+  //Outline Options
+
+  val dumpDefaultTocXsl: Parameter[Boolean] = Parameter[Boolean]("dump-default-toc-xsl")
+
+  val dumpOutline: Parameter[String] = Parameter[String]("dump-outline")
+
+  val outline: Parameter[Option[Boolean]] = Parameter[Option[Boolean]]("outline")
+
+  val outlineDepth: Parameter[Int] = Parameter[Int]("outline-depth")
+
+  //Page Options
+
+  val allow: Parameter[Seq[String]] = Parameter[Seq[String]]("allow")
+
+  val background: Parameter[Option[Boolean]] = Parameter[Option[Boolean]]("background")
+
+  val bypassProxyFor: Parameter[Seq[String]] = Parameter[Seq[String]]("bypass-proxy-for")
+
+  val cacheDir: Parameter[String] = Parameter[String]("cache-dir")
+
+  val checkboxCheckedSvg: Parameter[String] = Parameter[String]("checkbox-checked-svg")
+
+  val checkboxSvg: Parameter[String] = Parameter[String]("checkbox-svg")
+
+  val cookie: Parameter[Map[String, String]] = Parameter[Map[String, String]]("cookie")
+
+  val customHeader: Parameter[Map[String, String]] =  Parameter[Map[String, String]]("custom-header")
+
+  val customHeaderPropagation: Parameter[Option[Boolean]] = Parameter[Option[Boolean]]("custom-header-propagation")
+
+  val debugJavascript: Parameter[Option[Boolean]] = Parameter[Option[Boolean]]("debug-javascript")
+
+  val defaultHeader: Parameter[Boolean] = Parameter[Boolean]("default-header")
+
+  val encoding: Parameter[String] = Parameter[String]("encoding", "UTF-8")
+
+  val disableExternalLinks: Parameter[Boolean] = Parameter[Boolean]("disable-external-links")
+
+  val enableExternalLinks: Parameter[Boolean] = Parameter[Boolean]("enable-external-links")
+
+  val disableForms: Parameter[Boolean] = Parameter[Boolean]("disable-forms")
+
+  val enableForms: Parameter[Boolean] = Parameter[Boolean]("enable-forms")
+
+  val images: Parameter[Option[Boolean]] = Parameter[Option[Boolean]]("images")
+
+  val disableInternalLinks: Parameter[Boolean] = Parameter[Boolean]("disable-internal-links")
+
+  val enableInternalLinks: Parameter[Boolean] = Parameter[Boolean]("enable-internal-links")
+
+  val disableJavascript: Parameter[Boolean] = Parameter[Boolean]("disable-javascript")
+
+  val enableJavascript: Parameter[Boolean] = Parameter[Boolean]("enable-javascript")
+
+  val javascriptDelay: Parameter[Int] = Parameter[Int]("javascript-delay")
+
+  val keepRelativeLinks: Parameter[Boolean] = Parameter[Boolean]("keep-relative-links")
+
+  val loadErrorHandling: Parameter[ErrorHandling] = Parameter[ErrorHandling]("load-error-handling")
+
+  val loadMediaErrorHandling: Parameter[ErrorHandling] = Parameter[ErrorHandling]("load-media-error-handling")
+
+  val disableLocalFileAccess: Parameter[Boolean] = Parameter[Boolean]("disable-local-file-access")
+
+  val enableLocalFileAccess: Parameter[Boolean] = Parameter[Boolean]("enable-local-file-access")
+
+  val minimumFontSize: Parameter[Int] = Parameter[Int]("minimum-font-size")
+
+  val excludeFromOutline: Parameter[Boolean] = Parameter[Boolean]("exclude-from-outline")
+
+  val includeInOutline: Parameter[Boolean] = Parameter[Boolean]("include-in-outline")
+
+  val pageOffset: Parameter[String] = Parameter[String]("page-offset")
+
+  val password: Parameter[String] = Parameter[String]("password")
+
+  val disablePlugins: Parameter[Boolean] = Parameter[Boolean]("disable-plugins")
+
+  val enablePlugins: Parameter[Boolean] = Parameter[Boolean]("enable-plugins")
+
+  val post: Parameter[Map[String, String]] = Parameter[Map[String, String]]("post")
+
+  val postFile: Parameter[Map[String, String]] = Parameter[Map[String, String]]("post-file")
+
+  val printMediaType: Parameter[Option[Boolean]] = Parameter[Option[Boolean]]("print-media-type")
+
+  val proxy: Parameter[String] = Parameter[String]("proxy")
+
+  val proxyHostnameLookup: Parameter[Boolean] = Parameter[Boolean]("proxy-hostname-lookup")
+
+  val radioButtonCheckedSvg: Parameter[String] = Parameter[String]("radio-button-checked-svg")
+
+  val radioButtonSvg: Parameter[String] = Parameter[String]("radio-button-svg")
+
+  val runScript: Parameter[Seq[String]] = Parameter[Seq[String]]("run-script")
+
+  val disableSmartShrinking: Parameter[Boolean] = Parameter[Boolean]("disable-smart-shrinking")
+
+  val enableSmartShrinking: Parameter[Boolean] = Parameter[Boolean]("enable-smart-shrinking")
+
+  val sslCrtParth: Parameter[String] = Parameter[String]("ssl-crt-path")
+
+  val sslKeyPassword: Parameter[String] = Parameter[String]("ssl-key-password")
+
+  val sslKeyPath: Parameter[String] = Parameter[String]("ssl-key-path")
+
+  val stopSlowScripts: Parameter[Option[Boolean]] = Parameter[Option[Boolean]]("stop-slow-scripts")
+
+  val disableTocBacklinks: Parameter[Boolean] = Parameter[Boolean]("disable-toc-backlinks")
+
+  val enableTocBacklinks: Parameter[Boolean] = Parameter[Boolean]("enable-toc-backlinks")
+
+  val userStyleSheet: Parameter[String] = Parameter[String]("user-style-sheet")
+
+  val username: Parameter[String] = Parameter[String]("username")
+
+  val viewportSize: Parameter[String] = Parameter[String]("viewport-size")
+
+  val windowStatus: Parameter[String] = Parameter[String]("window-status")
 
   val zoom: Parameter[Float] = Parameter[Float]("zoom")
+
+  //Header and Footer Options
 
   val footerCenter: Parameter[String] = Parameter[String]("footer-center")
 
@@ -79,7 +203,7 @@ trait PdfConfig {
 
   val footerLeft: Parameter[String] = Parameter[String]("footer-left")
 
-  val footerLine: Parameter[Boolean] = Parameter[Boolean]("footer-line")
+  val footerLine: Parameter[Option[Boolean]] = Parameter[Option[Boolean]]("footer-line")
 
   val footerRight: Parameter[String] = Parameter[String]("footer-right")
 
@@ -101,65 +225,25 @@ trait PdfConfig {
 
   val headerSpacing: Parameter[Float] = Parameter[Float]("header-spacing")
 
-  val tableOfContentDepth: Parameter[Int] = Parameter[Int]("toc-depth")
+  val replace: Parameter[Map[String, String]] = Parameter[Map[String, String]]("replace")
 
-  val tableOfContentDisableBackLinks: Parameter[Boolean] = Parameter[Boolean]("toc-disable-back-links")
+  //TOC Options
 
-  val tableOfContentDisableLinks: Parameter[Boolean] = Parameter[Boolean]("toc-disable-links")
+  val tableOfContent: ObjectParameter[Boolean] = ObjectParameter[Boolean]("toc")
 
-  val tableOfContentFontName: Parameter[String] = Parameter[String]("toc-font-name")
+  val disableDottedLines: Parameter[Boolean] = Parameter[Boolean]("disable-dotted-lines")
 
-  val tableOfContentHeaderFontName: Parameter[String] = Parameter[String]("toc-header-font-name")
+  val tocHeaderText: Parameter[String] = Parameter[String]("toc-header-text")
 
-  val tableOfContentHeaderFontSize: Parameter[Int] = Parameter[Int]("toc-header-font-size")
+  val tocLevelIndentation: Parameter[String] = Parameter[String]("toc-level-indentation")
 
-  val tableOfContentHeaderText: Parameter[String] = Parameter[String]("toc-header-text")
+  val disableTocLinks: Parameter[Boolean] = Parameter[Boolean]("disable-toc-links")
 
-  val tableOfContentLevel1FontSize: Parameter[Int] = Parameter[Int]("toc-l1-font-size")
+  val tocTextSizeShrink: Parameter[Float] = Parameter[Float]("toc-text-size-shrink")
 
-  val tableOfContentLevel1Indentation: Parameter[Int] = Parameter[Int]("toc-l1-indentation")
+  val xslStyleSheet: Parameter[String] = Parameter[String]("xsl-style-sheet")
 
-  val tableOfContentLevel2FontSize: Parameter[Int] = Parameter[Int]("toc-l2-font-size")
 
-  val tableOfContentLevel2Indentation: Parameter[Int] = Parameter[Int]("toc-l2-indentation")
-
-  val tableOfContentLevel3FontSize: Parameter[Int] = Parameter[Int]("toc-l3-font-size")
-
-  val tableOfContentLevel3Indentation: Parameter[Int] = Parameter[Int]("toc-l3-indentation")
-
-  val tableOfContentLevel4FontSize: Parameter[Int] = Parameter[Int]("toc-l4-font-size")
-
-  val tableOfContentLevel4Indentation: Parameter[Int] = Parameter[Int]("toc-l4-indentation")
-
-  val tableOfContentLevel5FontSize: Parameter[Int] = Parameter[Int]("toc-l5-font-size")
-
-  val tableOfContentLevel5Indentation: Parameter[Int] = Parameter[Int]("toc-l5-indentation")
-
-  val tableOfContentLevel6FontSize: Parameter[Int] = Parameter[Int]("toc-l6-font-size")
-
-  val tableOfContentLevel6Indentation: Parameter[Int] = Parameter[Int]("toc-l6-indentation")
-
-  val tableOfContentLevel7FontSize: Parameter[Int] = Parameter[Int]("toc-l7-font-size")
-
-  val tableOfContentLevel7Indentation: Parameter[Int] = Parameter[Int]("toc-l7-indentation")
-
-  val tableOfContentNoDots: Parameter[Boolean] = Parameter[Boolean]("toc-no-dots")
-
-  val outline: Parameter[Option[Boolean]] = Parameter[Option[Boolean]]("outline")
-
-  val outlineDepth: Parameter[Int] = Parameter[Int]("outline-depth")
-
-  val printMediaType: Parameter[Option[Boolean]] = Parameter[Option[Boolean]]("print-media-type")
-
-  val userStyleSheet: Parameter[String] = Parameter[String]("user-style-sheet")
-
-  val username: Parameter[String] = Parameter[String]("username")
-
-  val password: Parameter[String] = Parameter[String]("password")
-
-  val viewportSize: Parameter[String] = Parameter[String]("viewport-size")
-
-  val useXServer: Parameter[Boolean] = Parameter[Boolean]("use-xserver")
 }
 
 object PdfConfig {
@@ -175,78 +259,115 @@ object PdfConfig {
   def toParameters(config: PdfConfig): Seq[String] = {
     import config._
     Seq(
-      allow.toParameter,
-      background.toParameter,
-      defaultHeader.toParameter,
-      disableExternalLinks.toParameter,
-      disableInternalLinks.toParameter,
-      disableJavascript.toParameter,
-      noPdfCompression.toParameter,
-      disableSmartShrinking.toParameter,
-      javascriptDelay.toParameter,
-      enableForms.toParameter,
-      encoding.toParameter,
-      footerCenter.toParameter,
-      footerFontName.toParameter,
-      footerFontSize.toParameter,
-      footerHtml.toParameter,
-      footerLeft.toParameter,
-      footerLine.toParameter,
-      footerRight.toParameter,
-      footerSpacing.toParameter,
-      grayScale.toParameter,
-      headerCenter.toParameter,
-      headerFontName.toParameter,
-      headerFontSize.toParameter,
-      headerHtml.toParameter,
-      headerLeft.toParameter,
-      headerLine.toParameter,
-      headerRight.toParameter,
-      headerSpacing.toParameter,
-      lowQuality.toParameter,
-      marginBottom.toParameter,
-      marginLeft.toParameter,
-      marginRight.toParameter,
-      marginTop.toParameter,
-      minimumFontSize.toParameter,
-      orientation.toParameter,
-      outline.toParameter,
-      outlineDepth.toParameter,
-      pageHeight.toParameter,
-      pageOffset.toParameter,
-      pageSize.toParameter,
-      pageWidth.toParameter,
-      password.toParameter,
-      printMediaType.toParameter,
-      tableOfContentDepth.toParameter,
-      tableOfContentDisableBackLinks.toParameter,
-      tableOfContentDisableLinks.toParameter,
-      tableOfContentFontName.toParameter,
-      tableOfContentHeaderFontName.toParameter,
-      tableOfContentHeaderFontSize.toParameter,
-      tableOfContentHeaderText.toParameter,
-      tableOfContentLevel1FontSize.toParameter,
-      tableOfContentLevel1Indentation.toParameter,
-      tableOfContentLevel2FontSize.toParameter,
-      tableOfContentLevel2Indentation.toParameter,
-      tableOfContentLevel3FontSize.toParameter,
-      tableOfContentLevel3Indentation.toParameter,
-      tableOfContentLevel4FontSize.toParameter,
-      tableOfContentLevel4Indentation.toParameter,
-      tableOfContentLevel5FontSize.toParameter,
-      tableOfContentLevel5Indentation.toParameter,
-      tableOfContentLevel6FontSize.toParameter,
-      tableOfContentLevel6Indentation.toParameter,
-      tableOfContentLevel7FontSize.toParameter,
-      tableOfContentLevel7Indentation.toParameter,
-      tableOfContentNoDots.toParameter,
-      title.toParameter,
-      userStyleSheet.toParameter,
-      username.toParameter,
-      useXServer.toParameter,
-      viewportSize.toParameter,
-      zoom.toParameter,
-      tableOfContent.toParameter(ObjectParamShow.BooleanObjectParamShow)
+    collate.toParameter,
+    cookieJar.toParameter,
+    copies.toParameter,
+    dpi.toParameter,
+    extendedHelp.toParameter,
+    grayScale.toParameter,
+    help.toParameter,
+    htmlDoc.toParameter,
+    imageDpi.toParameter,
+    imageQuality.toParameter,
+    license.toParameter,
+    manPage.toParameter,
+    marginBottom.toParameter,
+    marginLeft.toParameter,
+    marginRight.toParameter,
+    marginTop.toParameter,
+    orientation.toParameter,
+    pageHeight.toParameter,
+    pageSize.toParameter,
+    pageWidth.toParameter,
+    noPdfCompression.toParameter,
+    readArgsFromStdin.toParameter,
+    readme.toParameter,
+    title.toParameter,
+    useXServer.toParameter,
+    version.toParameter,
+    dumpDefaultTocXsl.toParameter,
+    dumpOutline.toParameter,
+    outline.toParameter,
+    outlineDepth.toParameter,
+    allow.toParameter,
+    background.toParameter,
+    bypassProxyFor.toParameter,
+    cacheDir.toParameter,
+    checkboxCheckedSvg.toParameter,
+    checkboxSvg.toParameter,
+    cookie.toParameter,
+    customHeader.toParameter,
+    customHeaderPropagation.toParameter,
+    debugJavascript.toParameter,
+    defaultHeader.toParameter,
+    encoding.toParameter,
+    disableExternalLinks.toParameter,
+    enableExternalLinks.toParameter,
+    disableForms.toParameter,
+    enableForms.toParameter,
+    images.toParameter,
+    disableInternalLinks.toParameter,
+    enableInternalLinks.toParameter,
+    disableJavascript.toParameter,
+    enableJavascript.toParameter,
+    javascriptDelay.toParameter,
+    keepRelativeLinks.toParameter,
+    loadErrorHandling.toParameter,
+    loadMediaErrorHandling.toParameter,
+    disableLocalFileAccess.toParameter,
+    enableLocalFileAccess.toParameter,
+    minimumFontSize.toParameter,
+    excludeFromOutline.toParameter,
+    includeInOutline.toParameter,
+    pageOffset.toParameter,
+    password.toParameter,
+    disablePlugins.toParameter,
+    enablePlugins.toParameter,
+    post.toParameter,
+    postFile.toParameter,
+    printMediaType.toParameter,
+    proxy.toParameter,
+    proxyHostnameLookup.toParameter,
+    radioButtonCheckedSvg.toParameter,
+    radioButtonSvg.toParameter,
+    runScript.toParameter,
+    disableSmartShrinking.toParameter,
+    enableSmartShrinking.toParameter,
+    sslCrtParth.toParameter,
+    sslKeyPassword.toParameter,
+    sslKeyPath.toParameter,
+    stopSlowScripts.toParameter,
+    disableTocBacklinks.toParameter,
+    enableTocBacklinks.toParameter,
+    userStyleSheet.toParameter,
+    username.toParameter,
+    viewportSize.toParameter,
+    windowStatus.toParameter,
+    zoom.toParameter,
+    footerCenter.toParameter,
+    footerFontName.toParameter,
+    footerFontSize.toParameter,
+    footerHtml.toParameter,
+    footerLeft.toParameter,
+    footerLine.toParameter,
+    footerRight.toParameter,
+    footerSpacing.toParameter,
+    headerCenter.toParameter,
+    headerFontName.toParameter,
+    headerFontSize.toParameter,
+    headerHtml.toParameter,
+    headerLeft.toParameter,
+    headerLine.toParameter,
+    headerRight.toParameter,
+    headerSpacing.toParameter,
+    replace.toParameter,
+    tableOfContent.toParameter(ObjectParamShow.BooleanObjectParamShow),
+    disableDottedLines.toParameter,
+    tocHeaderText.toParameter,
+    tocLevelIndentation.toParameter,
+    disableTocLinks.toParameter,
+    tocTextSizeShrink.toParameter,
+    xslStyleSheet.toParameter
     ).flatten
   }
 
