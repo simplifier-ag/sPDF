@@ -51,6 +51,11 @@ object ParamShow {
       formatParam(name, Some(value.value))
   }
 
+  implicit object LogLevelParamShow extends ParamShow[LogLevel] {
+    override def show(name: String, value: LogLevel): Iterable[String] =
+      formatParam(name, Some(value.value))
+  }
+
   implicit object RepeatableStringParamShow extends ParamShow[Seq[String]] {
     override def show(name: String, value: Seq[String]): Iterable[String] =
       value.flatMap(stringValue => formatParam(name, Some(stringValue)))
@@ -62,7 +67,6 @@ object ParamShow {
         formatParam(name, Some(s"$key $strVal"))
       }
   }
-
 
   private def formatParam(name: String, value: Option[String]): Iterable[String] =
     Seq(Some("--" + name), value).flatten

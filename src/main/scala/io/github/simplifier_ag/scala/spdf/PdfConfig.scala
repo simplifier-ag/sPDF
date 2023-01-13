@@ -39,6 +39,10 @@ trait PdfConfig {
 
   val license: Parameter[Boolean] = Parameter[Boolean]("license")
 
+  val logLevel: Parameter[LogLevel] = Parameter[LogLevel]("log-level")
+
+  val lowquality: Parameter[Boolean] = Parameter[Boolean]("lowquality")
+
   val manPage: Parameter[Boolean] = Parameter[Boolean]("manpage")
 
   val marginBottom: Parameter[String] = Parameter[String]("margin-bottom")
@@ -95,7 +99,7 @@ trait PdfConfig {
 
   val cookie: Parameter[Map[String, String]] = Parameter[Map[String, String]]("cookie")
 
-  val customHeader: Parameter[Map[String, String]] =  Parameter[Map[String, String]]("custom-header")
+  val customHeader: Parameter[Map[String, String]] = Parameter[Map[String, String]]("custom-header")
 
   val customHeaderPropagation: Parameter[Option[Boolean]] = Parameter[Option[Boolean]]("custom-header-propagation")
 
@@ -159,9 +163,11 @@ trait PdfConfig {
 
   val proxyHostnameLookup: Parameter[Boolean] = Parameter[Boolean]("proxy-hostname-lookup")
 
-  val radioButtonCheckedSvg: Parameter[String] = Parameter[String]("radio-button-checked-svg")
+  val radioButtonCheckedSvg: Parameter[String] = Parameter[String]("radiobutton-checked-svg")
 
-  val radioButtonSvg: Parameter[String] = Parameter[String]("radio-button-svg")
+  val radioButtonSvg: Parameter[String] = Parameter[String]("radiobutton-svg")
+
+  val resolveRelativeLinks: Parameter[Boolean] = Parameter[Boolean]("resolve-relative-links")
 
   val runScript: Parameter[Seq[String]] = Parameter[Seq[String]]("run-script")
 
@@ -259,125 +265,143 @@ object PdfConfig {
   def toParameters(config: PdfConfig): Seq[String] = {
     import config._
     Seq(
-    collate.toParameter,
-    cookieJar.toParameter,
-    copies.toParameter,
-    dpi.toParameter,
-    extendedHelp.toParameter,
-    grayScale.toParameter,
-    help.toParameter,
-    htmlDoc.toParameter,
-    imageDpi.toParameter,
-    imageQuality.toParameter,
-    license.toParameter,
-    manPage.toParameter,
-    marginBottom.toParameter,
-    marginLeft.toParameter,
-    marginRight.toParameter,
-    marginTop.toParameter,
-    orientation.toParameter,
-    pageHeight.toParameter,
-    pageSize.toParameter,
-    pageWidth.toParameter,
-    noPdfCompression.toParameter,
-    readArgsFromStdin.toParameter,
-    readme.toParameter,
-    title.toParameter,
-    useXServer.toParameter,
-    version.toParameter,
-    dumpDefaultTocXsl.toParameter,
-    dumpOutline.toParameter,
-    outline.toParameter,
-    outlineDepth.toParameter,
-    allow.toParameter,
-    background.toParameter,
-    bypassProxyFor.toParameter,
-    cacheDir.toParameter,
-    checkboxCheckedSvg.toParameter,
-    checkboxSvg.toParameter,
-    cookie.toParameter,
-    customHeader.toParameter,
-    customHeaderPropagation.toParameter,
-    debugJavascript.toParameter,
-    defaultHeader.toParameter,
-    encoding.toParameter,
-    disableExternalLinks.toParameter,
-    enableExternalLinks.toParameter,
-    disableForms.toParameter,
-    enableForms.toParameter,
-    images.toParameter,
-    disableInternalLinks.toParameter,
-    enableInternalLinks.toParameter,
-    disableJavascript.toParameter,
-    enableJavascript.toParameter,
-    javascriptDelay.toParameter,
-    keepRelativeLinks.toParameter,
-    loadErrorHandling.toParameter,
-    loadMediaErrorHandling.toParameter,
-    disableLocalFileAccess.toParameter,
-    enableLocalFileAccess.toParameter,
-    minimumFontSize.toParameter,
-    excludeFromOutline.toParameter,
-    includeInOutline.toParameter,
-    pageOffset.toParameter,
-    password.toParameter,
-    disablePlugins.toParameter,
-    enablePlugins.toParameter,
-    post.toParameter,
-    postFile.toParameter,
-    printMediaType.toParameter,
-    proxy.toParameter,
-    proxyHostnameLookup.toParameter,
-    radioButtonCheckedSvg.toParameter,
-    radioButtonSvg.toParameter,
-    runScript.toParameter,
-    disableSmartShrinking.toParameter,
-    enableSmartShrinking.toParameter,
-    sslCrtParth.toParameter,
-    sslKeyPassword.toParameter,
-    sslKeyPath.toParameter,
-    stopSlowScripts.toParameter,
-    disableTocBacklinks.toParameter,
-    enableTocBacklinks.toParameter,
-    userStyleSheet.toParameter,
-    username.toParameter,
-    viewportSize.toParameter,
-    windowStatus.toParameter,
-    zoom.toParameter,
-    footerCenter.toParameter,
-    footerFontName.toParameter,
-    footerFontSize.toParameter,
-    footerHtml.toParameter,
-    footerLeft.toParameter,
-    footerLine.toParameter,
-    footerRight.toParameter,
-    footerSpacing.toParameter,
-    headerCenter.toParameter,
-    headerFontName.toParameter,
-    headerFontSize.toParameter,
-    headerHtml.toParameter,
-    headerLeft.toParameter,
-    headerLine.toParameter,
-    headerRight.toParameter,
-    headerSpacing.toParameter,
-    replace.toParameter,
-    tableOfContent.toParameter(ObjectParamShow.BooleanObjectParamShow),
-    disableDottedLines.toParameter,
-    tocHeaderText.toParameter,
-    tocLevelIndentation.toParameter,
-    disableTocLinks.toParameter,
-    tocTextSizeShrink.toParameter,
-    xslStyleSheet.toParameter
+      //Global Options
+
+      collate.toParameter,
+      cookieJar.toParameter,
+      copies.toParameter,
+      dpi.toParameter,
+      extendedHelp.toParameter,
+      grayScale.toParameter,
+      help.toParameter,
+      htmlDoc.toParameter,
+      imageDpi.toParameter,
+      imageQuality.toParameter,
+      license.toParameter,
+      logLevel.toParameter,
+      lowquality.toParameter,
+      manPage.toParameter,
+      marginBottom.toParameter,
+      marginLeft.toParameter,
+      marginRight.toParameter,
+      marginTop.toParameter,
+      orientation.toParameter,
+      pageHeight.toParameter,
+      pageSize.toParameter,
+      pageWidth.toParameter,
+      noPdfCompression.toParameter,
+      readArgsFromStdin.toParameter,
+      readme.toParameter,
+      title.toParameter,
+      useXServer.toParameter,
+      version.toParameter,
+
+      //Outline Options
+
+      dumpDefaultTocXsl.toParameter,
+      dumpOutline.toParameter,
+      outline.toParameter,
+      outlineDepth.toParameter,
+
+      //Page Options
+
+      allow.toParameter,
+      background.toParameter,
+      bypassProxyFor.toParameter,
+      cacheDir.toParameter,
+      checkboxCheckedSvg.toParameter,
+      checkboxSvg.toParameter,
+      cookie.toParameter,
+      customHeader.toParameter,
+      customHeaderPropagation.toParameter,
+      debugJavascript.toParameter,
+      defaultHeader.toParameter,
+      encoding.toParameter,
+      disableExternalLinks.toParameter,
+      enableExternalLinks.toParameter,
+      disableForms.toParameter,
+      enableForms.toParameter,
+      images.toParameter,
+      disableInternalLinks.toParameter,
+      enableInternalLinks.toParameter,
+      disableJavascript.toParameter,
+      enableJavascript.toParameter,
+      javascriptDelay.toParameter,
+      keepRelativeLinks.toParameter,
+      loadErrorHandling.toParameter,
+      loadMediaErrorHandling.toParameter,
+      disableLocalFileAccess.toParameter,
+      enableLocalFileAccess.toParameter,
+      minimumFontSize.toParameter,
+      excludeFromOutline.toParameter,
+      includeInOutline.toParameter,
+      pageOffset.toParameter,
+      password.toParameter,
+      disablePlugins.toParameter,
+      enablePlugins.toParameter,
+      post.toParameter,
+      postFile.toParameter,
+      printMediaType.toParameter,
+      proxy.toParameter,
+      proxyHostnameLookup.toParameter,
+      radioButtonCheckedSvg.toParameter,
+      radioButtonSvg.toParameter,
+      resolveRelativeLinks.toParameter,
+      runScript.toParameter,
+      disableSmartShrinking.toParameter,
+      enableSmartShrinking.toParameter,
+      sslCrtParth.toParameter,
+      sslKeyPassword.toParameter,
+      sslKeyPath.toParameter,
+      stopSlowScripts.toParameter,
+      disableTocBacklinks.toParameter,
+      enableTocBacklinks.toParameter,
+      userStyleSheet.toParameter,
+      username.toParameter,
+      viewportSize.toParameter,
+      windowStatus.toParameter,
+      zoom.toParameter,
+
+      //Headers And Footer Options
+
+      footerCenter.toParameter,
+      footerFontName.toParameter,
+      footerFontSize.toParameter,
+      footerHtml.toParameter,
+      footerLeft.toParameter,
+      footerLine.toParameter,
+      footerRight.toParameter,
+      footerSpacing.toParameter,
+      headerCenter.toParameter,
+      headerFontName.toParameter,
+      headerFontSize.toParameter,
+      headerHtml.toParameter,
+      headerLeft.toParameter,
+      headerLine.toParameter,
+      headerRight.toParameter,
+      headerSpacing.toParameter,
+      replace.toParameter,
+
+      //Toc Options
+
+      tableOfContent.toParameter(ObjectParamShow.BooleanObjectParamShow),
+      disableDottedLines.toParameter,
+      tocHeaderText.toParameter,
+      tocLevelIndentation.toParameter,
+      disableTocLinks.toParameter,
+      tocTextSizeShrink.toParameter,
+      xslStyleSheet.toParameter
     ).flatten
   }
 
   /**
    * Attempts to find the `wkhtmltopdf` executable in the system path.
+   *
    * @return
    */
   def findExecutable: Option[String] = try {
     val os = System.getProperty("os.name").toLowerCase
-    val cmd = if(os.contains("windows")) "where wkhtmltopdf" else "which wkhtmltopdf"
+    val cmd = if (os.contains("windows")) "where wkhtmltopdf" else "which wkhtmltopdf"
 
     Option(cmd.!!.trim).filter(_.nonEmpty)
   } catch {
