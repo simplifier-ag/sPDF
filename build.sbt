@@ -13,9 +13,9 @@ licenses := Seq(
 
 organization := "io.github.simplifier-ag"
 
-scalaVersion := "2.12.0"
+scalaVersion := "2.12.15"
 
-crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.0")
+crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.15")
 
 releaseCrossBuild := true
 
@@ -25,11 +25,11 @@ scalacOptions ++= Seq(
   "-encoding", "UTF-8"
 )
 
-fork in Test := true
+Test / fork  := true
 
-parallelExecution in Test := false
+Test/ parallelExecution := false
 
-logLevel in compile := Level.Warn
+Compile / logLevel := Level.Warn
 
 scmInfo := Some(
   ScmInfo(
@@ -46,8 +46,8 @@ libraryDependencies := {
   CrossVersion.partialVersion(scalaVersion.value) match {
     case Some((2, scalaMajor)) if scalaMajor >= 11 =>
       libraryDependencies.value ++ Seq(
-        "org.scala-lang.modules" %% "scala-xml" % "1.0.6",
-        "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.4"
+        "org.scala-lang.modules" %% "scala-xml" % "1.3.0",
+        "org.scala-lang.modules" %% "scala-parser-combinators" % "2.3.0"
       )
     case _ =>
       libraryDependencies.value
@@ -77,7 +77,7 @@ credentials += Credentials(
   "D47B6E1E63D979514A139ADAD433750913FA4E7E", // key identifier
   "ignored" // this field is ignored; passwords are supplied by pinentry
 )
-publishArtifact in Test := false
+Test / publishArtifact := false
 
 // publishArtifact in (Compile, packageDoc) := false
 
@@ -101,4 +101,4 @@ pomExtra := (
 )
 
 // Josh Suereth's step-by-step guide to publishing on sonatype
-// http://www.scala-sbt.org/using_sonatype.html
+// https://www.scala-sbt.org/release/docs/Using-Sonatype.html
